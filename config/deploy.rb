@@ -5,7 +5,7 @@ set :application, 'kokos'
 application = 'kokos'
 set :rvm_type, :user
 set :rails_env, 'production'
-set :rvm_ruby_version, '2.6.0'
+set :rvm_ruby_version, '2.6.0preview2'
 set :deploy_to, '/home/deployer/apps/kokos'
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
