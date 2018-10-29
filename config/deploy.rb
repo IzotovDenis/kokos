@@ -1,4 +1,4 @@
-lock '3.10.1'
+lock '3.11.0'
 
 set :repo_url, 'git@github.com:IzotovDenis/kokos.git'
 set :application, 'kokos'
