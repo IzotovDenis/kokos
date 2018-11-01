@@ -1,3 +1,5 @@
 class Brand < ApplicationRecord
-    has_many :items
+    mount_uploader :image, BrandUploader
+    default_scope { order(title: :desc) }
+    has_many :items, dependent: :nullify
 end

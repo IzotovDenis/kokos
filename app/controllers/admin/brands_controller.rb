@@ -4,13 +4,17 @@ class Admin::BrandsController < AdminController
 
     def index
         @brands = Brand.all
-        render json: {brands: @brands}
+        @hash = {}
+        @brands.each do |brand|
+            @hash[brand.id] = brand
+        end
+        render json: {brands: @brands, list: @hash}
     end
 
     def create
         @brand = Brand.new(brand_params)
             if @brand.save
-                render json: {success: true, brand: @brand.to_json}
+                render json: {success: true, brand: @brand}
             else
                 render json: {success: false, errors: @brand.errors}
             end
@@ -22,14 +26,18 @@ class Admin::BrandsController < AdminController
 
     def update
         if @brand.update(brand_params)
-            render json: {success: true, brand: @brand.to_json}
+            render json: {success: true, brand: @brand}
         else
             render json: {success: false, errors: @brand.errors}
         end
     end
 
     def destroy
-
+        if @brand.destroy
+            render json: {success: true}
+        else
+            render json: {success: false}
+        end
     end
 
     private 
@@ -39,7 +47,9 @@ class Admin::BrandsController < AdminController
     end
 
     def brand_params
-        params.require(:brand).permit(:title, image: [])
+        the_params = params.require(:brand).permit(:title, :image => {})
+        the_params[:image] = parse_image_data(the_params[:image][:data_uri],the_params[:image][:filename]) if the_params[:image] && the_params[:image][:base64]
+        the_params
     end
 
     def parse_image_data(base64_image, filename)
@@ -63,12 +73,6 @@ class Admin::BrandsController < AdminController
           content_type: content_type,
           filename: filename
         })
-      end
-
-      # Only allow a trusted parameter "white list" through.
-      def image_params
-        the_params = params.require(:item_image).permit(:data_uri, :filename)
-        parse_image_data(the_params[:data_uri],the_params[:filename]) if the_params[:filename]
       end
 
       def clean_tempfile

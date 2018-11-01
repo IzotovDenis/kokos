@@ -32,7 +32,11 @@ class Admin::ItemsController < AdminController
     end
 
     def destroy
-
+        if @item.destroy
+            render json: {success: true}
+        else
+            render json: {success: false}
+        end
     end
 
     private 
@@ -46,7 +50,7 @@ class Admin::ItemsController < AdminController
     end
 
     def item_params
-        params.require(:item).permit(:title, :code, :article, :disctiption, :brand_id, :group_id, :price, :parent_id, images: [:url, post: [:url], thumb: [:url]])
+        params.require(:item).permit(:title, :code, :article, :subtitle, :disctiption, :brand_id, :group_id, :price, :parent_id, images: [:url, post: [:url], thumb: [:url]])
     end
 
 end

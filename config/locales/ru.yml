@@ -1,0 +1,15 @@
+ru:
+  activerecord:
+    attributes:
+      group:
+        title: Наименование
+    errors:
+      models:
+        group:
+          attributes:
+            title:
+              blank: Не заполнено наименование группы
+        item:
+          attributes:
+            title:
+              blank: Не заполнено наименование товара

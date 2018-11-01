@@ -65,7 +65,7 @@ namespace :deploy do
       execute "mkdir /home/deployer/apps/#{application}/run"
       execute "mkdir /home/deployer/apps/#{application}/run/sockets"
       execute "mkdir /home/deployer/apps/#{application}/run/pids"
-
+      upload!('config/master.key', "#{shared_path}/config/master.key")
       upload!('shared/database.yml', "#{shared_path}/config/database.yml")
       upload!('shared/application.yml', "#{shared_path}/config/application.yml")
 
@@ -87,7 +87,6 @@ namespace :deploy do
       execute "ln -s /home/deployer/uploads #{release_path}/public/uploads"
       execute "ln -s /home/deployer/apps/#{application}/run #{release_path}/run"
       execute "ln -s #{shared_path}/config/sphinx #{release_path}/config/sphinx"
-
     end
   end
 
