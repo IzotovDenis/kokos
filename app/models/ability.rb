@@ -1,4 +1,5 @@
 class Ability
+
     include CanCan::Ability
 
     def initialize(user)
@@ -9,13 +10,13 @@ class Ability
     end
 
     def admin
-        can :manage Item
-        can :manage Group
-        can :manage Brand
+        can :manage, Item
+        can :manage, Group
+        can :manage, Brand
     end
 
     def user
-        can :read Item
+        can :read, Item
     end
 
 end
