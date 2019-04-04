@@ -4,7 +4,7 @@ class OrderMailer < ActionMailer::Base
 
    def order(order)
         @order = order
-        @email = "izotov87@gmail.com"
-        mail to: @email, :reply_to=> @email, subject: "письмо"
+        @email = "kokosussur@gmail.com"
+        mail to: @email, :reply_to=> @email, subject: "заказ"
    end
 end
