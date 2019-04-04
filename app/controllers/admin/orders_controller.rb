@@ -6,12 +6,12 @@ class Admin::OrdersController < AdminController
     end
 
     def index
-        @orders = Order.all
-        render json: @orders
+        @orders = Order.all.order("created_at DESC")
+        render json: { orders: @orders }
     end
 
     def show
-        render json: @order
+        render json: {order: @order}
     end
 
     private 

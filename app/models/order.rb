@@ -4,8 +4,15 @@ class Order < ApplicationRecord
 
     def avaiable_items
         if self.order_list
+            list = []
             ids = self.order_list.keys || []
             @items = Item.where("id IN (?)", ids)
+            @items.each do |item|
+                pre_item = item.as_json
+                pre_item['qty'] = self.order_list[item['id'].to_s]
+                list.push(pre_item)
+            end
+            return list
         else
             []
         end
@@ -13,21 +20,8 @@ class Order < ApplicationRecord
 
     def pre_amount
         amount = 0
-        self.avaiable_items.map {|item| amount+=item['ordered'].to_i*item['price'].to_i}
+        self.avaiable_items.map {|item|  amount+=self.order_list[item["id"].to_s].to_i*item['price'].to_i}
         amount
-    end
-
-    def unavaiable_items
-        if self.order_list
-            ids = self.order_list.keys  || []
-            @items = Item.where("id IN (?)", ids)
-        else
-            []
-        end
-    end
-
-    def is_valid?
-        self.avaiable_items.length > 0
     end
 
      def set_items

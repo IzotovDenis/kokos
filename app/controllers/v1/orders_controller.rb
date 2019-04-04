@@ -14,6 +14,7 @@ class V1::OrdersController <  V1Controller
 
     def create
         if @order.save
+            OrderMailer.order(@order).deliver!
             render json: {order: @order, success: true}
         else
             render json: {success: false, errors: @order.errors}
@@ -21,16 +22,7 @@ class V1::OrdersController <  V1Controller
     end
 
     def getOrderItems
-        render :json => {items: @order.avaiable_items, not_able: @order.unavaiable_items, amount: @order.pre_amount, valid: @order.is_valid? }
-    end
-
-    def pay
-        if @order.pay
-            response = @order.pay
-            render :json => {success: true, response: response }
-        else
-            render :json => {success: false, errors: @order.errors}
-        end
+        render :json => {items: @order.avaiable_items, amount: @order.pre_amount}
     end
 
     private

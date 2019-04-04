@@ -1,0 +1,10 @@
+ЗАКАЗ С САЙТА
+ФИО: <%= @order.info['person']%>
+Адрес: <%= @order.info['address']%>
+Телефон: <%= @order.info['tel']%>
+email: <%= @order.info['email']%>
+Комментарий к заказу: <%= @order.info['comment']%>
+СОСТАВ ЗАКАЗА
+<% @order.items.each do |item|%>
+<%= "#{item['title']}   -   #{item['qty']} шт"%>
+<% end %>
