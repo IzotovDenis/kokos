@@ -2,7 +2,7 @@ class V1::ItemsController < V1Controller
     before_action :set_item, only: [:show]
 
     def show
-        render json: {item: @item}
+        render json: {item: @item.as_json(include: {group: {only: [:ancestry, :title, :id]}})}
     end
 
     def rand
