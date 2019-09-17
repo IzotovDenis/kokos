@@ -10,6 +10,9 @@ class Order < ApplicationRecord
             @items.each do |item|
                 pre_item = item.as_json
                 pre_item['qty'] = self.order_list[item['id'].to_s]
+                if (item.discount_price > 0) 
+                    pre_item['price'] = item.discount_price
+                end
                 list.push(pre_item)
             end
             return list
