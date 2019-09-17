@@ -9,10 +9,12 @@ namespace :admin do
   post '/item_image', to: 'item_images#create'
   resources :orders
   resources :brands
+  resources :discounts
 end
 
 namespace :v1 do
   resources :groups
+  resources :discounts
   resources :orders do
     collection do
       post 'getOrderItems'

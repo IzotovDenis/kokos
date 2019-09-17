@@ -20,7 +20,7 @@ class Order < ApplicationRecord
 
     def pre_amount
         amount = 0
-        self.avaiable_items.map {|item|  amount+=self.order_list[item["id"].to_s].to_i*item['price'].to_i}
+        self.avaiable_items.map {|item|  amount+=self.order_list[item["id"].to_s].to_i*(item['discount_price'].to_i > 0 ? item['discount_price'].to_i : item['price'].to_i )}
         amount
     end
 
