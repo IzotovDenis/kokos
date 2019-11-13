@@ -38,6 +38,7 @@ gem 'cancancan'
 gem 'ancestry'
 gem 'rack-cors'
 gem 'mini_magick'
+gem 'whenever', require: false
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -47,6 +48,10 @@ gem 'mini_magick'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'sitemap_generator'
+gem 'whenever', require: false
+gem 'mysql2',          '~> 0.3.18', :platform => :ruby
+gem 'thinking-sphinx', '~> 3.3.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

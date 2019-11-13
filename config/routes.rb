@@ -13,6 +13,7 @@ namespace :admin do
 end
 
 namespace :v1 do
+  post 'search', to: "search#index"
   resources :groups
   resources :discounts
   resources :orders do
