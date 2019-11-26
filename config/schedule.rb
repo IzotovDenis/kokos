@@ -21,3 +21,7 @@
 every 5.minutes do
 	rake "ts:index"
 end
+
+every :reboot do
+	rake "ts:rebuild"
+end

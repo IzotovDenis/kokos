@@ -51,6 +51,8 @@ namespace :git do
   end
 end
 
+
+
 namespace :deploy do
   desc 'Setup'
   task :setup do
@@ -78,6 +80,16 @@ namespace :deploy do
     end
   end
 
+  task :update_cron do
+    on roles(:app) do
+      within current_path do
+        execute :bundle, :exec, "whenever --update-crontab #{fetch(:application)}"
+      end
+    end
+  end
+
+
+
   desc 'Create symlink'
   task :symlink do
     on roles(:all) do
@@ -100,6 +112,8 @@ namespace :deploy do
 
   after :finishing, 'deploy:cleanup'
   after :finishing, 'deploy:restart'
+
+  after :finishing, 'deploy:update_cron'
 
   after :updating, 'deploy:symlink'
 
